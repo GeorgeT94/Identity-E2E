@@ -17,7 +17,7 @@ public class FileServiceImpl implements IFileService {
 		return files;
 	}
 	
-	public File getFileByMimeType(String mimeType) {
+	public File getFilesByMimeType(String mimeType) {
 		File file = new File();
 		return file;
 	}

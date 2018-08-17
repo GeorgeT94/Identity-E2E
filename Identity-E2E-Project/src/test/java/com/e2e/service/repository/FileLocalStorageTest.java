@@ -1,10 +1,11 @@
 package com.e2e.service.repository;
 
+import java.io.File;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.e2e.domain.File;
 
 public class FileLocalStorageTest {
 	private FileLocalStorage localStorage;
@@ -21,8 +22,7 @@ public class FileLocalStorageTest {
 	
 
 	public void getAllContainsName(String name) {
-		File testFile = new File();
-		testFile.setName(name);
+		File testFile = new File("C:\\TestFiles\\SampleCSVFile_119kb.csv");
 		Assert.assertTrue(localStorage.getAllFiles().contains(testFile));
 	}
 	
