@@ -32,6 +32,17 @@ public class File {
 		return extension;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
+	}
+
+	public void setExtension(String extension) {
+		this.extension = extension;
+	}
 
 
 }
