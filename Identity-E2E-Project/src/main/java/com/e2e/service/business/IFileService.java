@@ -8,7 +8,7 @@ public interface IFileService {
 
 	List<File> getAllFiles();
 
-	File getFileByMimeType(String mimeType);
+	File getFilesByMimeType(String mimeType);
 
 
 }
