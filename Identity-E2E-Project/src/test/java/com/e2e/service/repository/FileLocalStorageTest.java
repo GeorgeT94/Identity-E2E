@@ -31,7 +31,7 @@ public class FileLocalStorageTest {
 		File testFile = new File("C:\\TestFiles\\SampleCSVFile_119kb.csv");
 		Assert.assertTrue(localStorage.getAllFiles().contains(testFile));
 	}
-	
+	  
 	@Test
 	public void getContainsSampleCSV() {
 		getAllContainsName(TEST_FILENAMES[0]);

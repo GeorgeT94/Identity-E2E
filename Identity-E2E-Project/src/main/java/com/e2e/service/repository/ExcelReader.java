@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -14,9 +15,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.e2e.domain.Car;
- 
 
 public class ExcelReader {
+	
+	final static Logger logger = Logger.getLogger(ExcelReader.class);
+
 	private Object getCellValue(Cell cell) {
 	    switch (cell.getCellType()) {
 	    case Cell.CELL_TYPE_STRING:
@@ -30,9 +33,10 @@ public class ExcelReader {
 	    }
 	 
 	    return null;
-	}
+	}  
 	
 	public List<Car> readCarsFromExcelFile(String excelFilePath) throws IOException {
+		logger.debug("getting cars from :" + excelFilePath);
 	    List<Car> listCars = new ArrayList<>();
 	    FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 	 
@@ -53,7 +57,7 @@ public class ExcelReader {
 	            case 0:
 	                aCar.setRegNumber((String) getCellValue(nextCell));
 	                break;
-	            case 1:
+	            case 3:
 	                aCar.setColour((String) getCellValue(nextCell));
 	                break;
 	            }
