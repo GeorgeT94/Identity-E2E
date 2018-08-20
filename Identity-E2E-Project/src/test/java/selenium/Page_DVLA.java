@@ -56,6 +56,17 @@ public class Page_DVLA {
 		 return colour;
 	}
 	
+	public String getCarMake() {
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		
+		 wait.until(
+			        ExpectedConditions.visibilityOfElementLocated(By.className("reg-mark")));
+		 		 
+		 String make = driver.findElement(By.xpath("/html/body/main/form/div/div/ul/li[2]/span[2]/strong")).getText();
+		 
+		 return make;
+	}
+	
 	public void quit() {
 		driver.quit();
 	}
