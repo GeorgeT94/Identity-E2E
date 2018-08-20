@@ -5,6 +5,9 @@ Feature: Checking Vehicle Data
 
 Scenario: Compare spreadsheet data to gov.uk data
   Given I have loaded spreadsheets containing vehicle data
-  When I run the checkValidVehicle method
-  Then I am returned a list of valid vehicles
+  When I select files with the excel mime type
+  Then I start the chrome driver
+  Then I connect to the dvla website
+  Then I enter vehicles reg numbers from excel sheet
+  Then All the vehicles have valid registration numbers
 

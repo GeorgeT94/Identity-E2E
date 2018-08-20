@@ -33,7 +33,8 @@ public class ExcelReader {
 	    }
 	 
 	    return null;
-	}  
+	}
+	
 	
 	public List<Car> readCarsFromExcelFile(String excelFilePath) throws IOException {
 		logger.debug("getting cars from :" + excelFilePath);
@@ -59,6 +60,9 @@ public class ExcelReader {
 	                break;
 	            case 3:
 	                aCar.setColour((String) getCellValue(nextCell));
+	                break;
+	            case 6:
+	                aCar.setMake((String) getCellValue(nextCell));
 	                break;
 	            }
 	        }
