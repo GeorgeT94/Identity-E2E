@@ -18,4 +18,4 @@ The car registration number is then entered and the results are compared to the 
 
 ### Here is the test results of the cucumber stepfile:
 
-![alt text]("https://imgur.com/LMaOkLZ")
+![Screenshot]("https://imgur.com/LMaOkLZ.png")
