@@ -7,6 +7,7 @@ import org.junit.Assert;
 import selenium.Page_DVLA;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -25,6 +26,8 @@ public class stepDefinitionsDVLA {
 	private ExcelReader reader = new ExcelReader();
 
 	private List<Car> carList;
+	private List<Car> validCars = new ArrayList<Car>();
+	private List<Car> invalidCars = new ArrayList<Car>();
 	private List<File> fileList;
 	private FileLocalStorage localStorage = new FileLocalStorage();
 	
@@ -51,30 +54,22 @@ public class stepDefinitionsDVLA {
 
 	@Then("^I enter vehicles reg numbers from excel sheet$")
 	public void i_enter_vehicles_reg_numbers_from_excel_sheet() throws Throwable {
-		
 		carList = reader.readCarsFromExcelFile(fileList.get(5).getPath());
 		
-		List<Car> testList = carList.subList(0, 5);
+		List<Car> testList = carList.subList(0, 15);
 		
-		for(Car car: testList) {
-			String carReg = car.getRegNumber();
-			
-			dvlaPage.openDVLAURL();
-			
-			dvlaPage.enterRegNumber(carReg);
-			
-			String carColour = dvlaPage.getCarColor();
-			String carMake = dvlaPage.getCarMake();
-			
-			Assert.assertEquals(carColour.toUpperCase(), car.getColour().toUpperCase());
-			Assert.assertEquals(carMake.toUpperCase(), car.getMake().toUpperCase());
-		}
+		dvlaPage.testCarList(testList, validCars, invalidCars);
 	}
 
 	@Then("^All the vehicles have valid registration numbers$")
 	public void all_the_vehicles_have_valid_registration_numbers() throws Throwable {
-
+		logger.debug("valid cars are----");
+		logger.debug(validCars);
+		
+		logger.debug("invalid cars------");
+		logger.debug(invalidCars);
 		dvlaPage.quit();
+		Assert.assertTrue(invalidCars.size() == 0);
 	}
 
 }

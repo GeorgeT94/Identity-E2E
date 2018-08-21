@@ -12,6 +12,10 @@ public class Car {
 	public String toString() {
         return String.format("%s - %s", regNumber, colour);
     }
+	
+	public boolean isMatch(String colour, String make) {
+		return colour.equalsIgnoreCase(getColour()) && make.equalsIgnoreCase(getMake());
+	}
 	public String getRegNumber() {
 		return regNumber;
 	}

@@ -1,5 +1,7 @@
 package selenium;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.e2e.domain.Car;
 
 
 public class Page_DVLA {
@@ -39,12 +43,20 @@ public class Page_DVLA {
 
 	}
 	
-	public String getCarColor() {
+	public boolean isCarFound() {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
+
+		try {
+			 wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("reg-mark")));
+			 return true;
+		}catch (Exception e) {
+			return false;
+		}
 		
-		 wait.until(
-			        ExpectedConditions.visibilityOfElementLocated(By.className("reg-mark")));
 		 
+	}
+	
+	public String getCarColor() {
 		 String returnedRegNumber = driver.findElement(By.xpath("//*[@id=\"pr3\"]/div/ul/li[3]/span[2]/strong")).getText();
 		 
 		 logger.debug("found regnumber is : " + returnedRegNumber);
@@ -67,6 +79,31 @@ public class Page_DVLA {
 		 return make;
 	}
 	
+	public void testCarList(List<Car> carList, List<Car> validCars, List<Car> invalidCars) {
+		for(Car car: carList) {
+			String carReg = car.getRegNumber();
+			
+			openDVLAURL();
+			
+			enterRegNumber(carReg);
+			
+			if(isCarFound()) {
+				String carColour = getCarColor();
+				String carMake = getCarMake();
+				
+				logger.debug("car found: color : " + carColour + " make : " + carMake);
+				
+				if(car.isMatch(carColour, carMake)) {
+					validCars.add(car);
+				}
+			}else {
+				logger.debug("car : " + car.getRegNumber() + "was not found");
+				invalidCars.add(car);
+			}
+			
+		}
+	}
+		
 	public void quit() {
 		driver.quit();
 	}
